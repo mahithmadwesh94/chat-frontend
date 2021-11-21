@@ -20,7 +20,7 @@ export default function Messenger() {
   const scrollRef = useRef();
   console.log('user', user)
   useEffect(() => {
-    socket.current = io("https://socketio-portfolio-server.herokuapp.com/");
+    socket.current = io("ws://socketio-portfolio-server.herokuapp.com/");
     socket.current.on("getMessage", (data) => {
       setArrivalMessage({
         sender: data.senderId,
@@ -88,7 +88,7 @@ export default function Messenger() {
     });
 
     try {
-      const res = await axios.post("https://chat-portfolio-server.herokuapp.com/api/messages", message);
+      const res = await axios.post("https://chat-portfolio-server.herokuapp.com/api/messages/", message);
       setMessages([...messages, res.data]);
       setNewMessage("");
     } catch (err) {
